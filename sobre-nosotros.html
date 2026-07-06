@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sobre Nosotros - Tienda Premium</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://unpkg.com/lenis@1.1.5/dist/lenis.css">
+  <style>
+    .about-header { padding: 12rem 2rem 4rem; text-align: center; }
+    .about-text { max-width: 800px; margin: 0 auto 6rem; font-size: 1.2rem; color: #ccc; }
+    .story-section { display: flex; align-items: center; gap: 4rem; margin-bottom: 6rem; }
+    .story-section:nth-child(even) { flex-direction: row-reverse; }
+    .story-img-wrap { flex: 1; height: 60vh; overflow: hidden; border-radius: 12px; position: relative; }
+    .story-img-wrap img { width: 100%; height: 130%; object-fit: cover; transform: translateY(-15%); }
+    .story-content { flex: 1; padding: 2rem; }
+  </style>
+</head>
+<body>
+  <header class="scrolled">
+    <div class="container header-inner">
+      <ul class="nav-links">
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="tienda.html">Tienda</a></li>
+      </ul>
+      <div class="logo">HUBLOT MENS</div>
+    </div>
+  </header>
+
+  <div class="about-header">
+    <h1 class="hero-title" style="font-size: 4rem;">NUESTRA HISTORIA</h1>
+  </div>
+  
+  <div class="container">
+    <div class="text-center about-text">
+      Nacimos con un propósito claro: redefinir la moda masculina combinando la estética del lujo editorial con la comodidad de las prendas esenciales. No seguimos tendencias, creamos identidad.
+    </div>
+
+    <div class="story-section expand-section">
+      <div class="story-img-wrap">
+        <img src="https://images.openai.com/static-rsc-4/v-DX9KD5uc1Ki3VNO39bjAnLGdvafqXmkYT5FddKqqgBrpiBDOdxWhTBGKK_5XXMQ8G-UU7R6AS7C9dzvlepFK08wQrvNi2Y7mYV96eOEcjTrYboMPEWHjkOwImBpzR70DgvhYkqnZAFIXbugv_2ssYY1cf2Bmm6sjgDbANPPTxZtYG6TnGKZH3XbqiDid3J?purpose=fullsize" class="expand-img" alt="Taller">
+      </div>
+      <div class="story-content">
+        <h2 class="section-title" style="text-align: left; margin-bottom: 1rem; font-size: 2.5rem;">Corte y Confección</h2>
+        <p style="color: #999;">Cada prenda es diseñada meticulosamente en nuestro estudio, seleccionando los mejores tejidos orgánicos. El proceso de patronaje busca la silueta perfecta que favorezca y perdure.</p>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="container">
+      <div class="footer-bottom" style="border-top:none;">&copy; 2026 Hublot Mens. Todos los derechos reservados.</div>
+    </div>
+  </footer>
+
+  <script src="https://unpkg.com/lenis@1.1.5/dist/lenis.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+        document.querySelectorAll('.story-img-wrap img').forEach(img => {
+          gsap.to(img, {
+            yPercent: 15,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: img.parentElement,
+              start: 'top bottom',
+              end: 'bottom top',
+              scrub: true
+            }
+          });
+        });
+      }
+    });
+  </script>
+</body>
+</html>

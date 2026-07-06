@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Producto - Tienda Premium</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://unpkg.com/lenis@1.1.5/dist/lenis.css">
+  <style>
+    .product-page-padding {
+      padding: 10rem 2rem 6rem;
+    }
+    
+    .product-layout {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 4rem;
+    }
+
+    .product-gallery {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      background: var(--color-dark-gray);
+      border: 1px solid var(--color-dark-gray);
+    }
+
+    .gallery-img-wrap {
+      background: var(--color-black);
+      position: relative;
+      padding-top: 133%;
+      overflow: hidden;
+      cursor: zoom-in;
+    }
+
+    .gallery-img-wrap.full {
+      grid-column: 1 / -1;
+    }
+
+    .gallery-img-wrap img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+
+    .gallery-img-wrap:hover img {
+      transform: scale(1.05);
+    }
+
+    .product-details {
+      position: sticky;
+      top: 100px;
+      align-self: start;
+    }
+
+    .breadcrumb {
+      font-size: 0.8rem;
+      color: #999;
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .prod-title {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .prod-price {
+      font-size: 1.5rem;
+      font-family: var(--font-heading);
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    .klarna-badge {
+      display: inline-block;
+      background: #f5c0c0;
+      color: #000;
+      padding: 0.2rem 0.5rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      border-radius: 4px;
+      margin-bottom: 2rem;
+    }
+
+    .variant-label {
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .color-options {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .color-swatch {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      border: 2px solid transparent;
+      cursor: pointer;
+      position: relative;
+    }
+    
+    .color-swatch.active {
+      border-color: var(--color-white);
+    }
+    .color-swatch::after {
+      content: '';
+      position: absolute;
+      inset: 2px;
+      border-radius: 50%;
+      background: currentColor;
+    }
+
+    .size-options {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .size-btn {
+      background: transparent;
+      border: 1px solid var(--color-dark-gray);
+      color: var(--color-white);
+      padding: 1rem;
+      font-family: var(--font-body);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .size-btn:hover, .size-btn.active {
+      border-color: var(--color-white);
+      background: var(--color-white);
+      color: var(--color-black);
+    }
+
+    .stock-alert {
+      color: #ff6b6b;
+      font-size: 0.85rem;
+      margin-bottom: 2rem;
+    }
+
+    .add-cart-btn {
+      width: 100%;
+      margin-bottom: 1rem;
+    }
+
+    .wishlist-btn {
+      width: 100%;
+      background: transparent;
+      color: var(--color-white);
+      border: 1px solid var(--color-white);
+      padding: 1rem;
+      cursor: pointer;
+      font-family: var(--font-heading);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      transition: opacity 0.3s ease;
+    }
+
+    .wishlist-btn:hover {
+      opacity: 0.7;
+    }
+
+    .accordion {
+      margin-top: 3rem;
+      border-top: 1px solid var(--color-dark-gray);
+    }
+
+    .accordion-item {
+      border-bottom: 1px solid var(--color-dark-gray);
+    }
+
+    .accordion-header {
+      padding: 1.5rem 0;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: var(--font-heading);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .accordion-content {
+      height: 0;
+      overflow: hidden;
+      color: #999;
+      font-size: 0.95rem;
+    }
+
+    .accordion-inner {
+      padding-bottom: 1.5rem;
+    }
+
+    @media (max-width: 1024px) {
+      .product-layout {
+        grid-template-columns: 1fr;
+      }
+      .product-details {
+        position: relative;
+        top: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  
+  <header class="scrolled">
+    <div class="container header-inner">
+      <ul class="nav-links">
+        <li><a href="tienda.html">Volver a Tienda</a></li>
+      </ul>
+      <div class="logo">HUBLOT MENS</div>
+      <div class="header-icons">
+        <svg viewBox="0 0 24 24"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+      </div>
+    </div>
+  </header>
+
+  <div class="container product-page-padding">
+    <div class="product-layout">
+      <!-- Gallery -->
+      <div class="product-gallery">
+        <div class="gallery-img-wrap full">
+          <img src="https://images.openai.com/static-rsc-4/FeLX6wPxoOYhrMfrl1CWqEUfUUEmgF_Ei9_lcMtfImpJg7ZCUhDdHyOMb4vypFPAihZjJvyui0FLC-1kGYXQohLT2-lb1BQjN5TgqhkpREvwun9p6aitgDiCespfU6oo6YumJDmDLSE4yeESswRKSBGpherL-4oV0-axBRaQMlpuhzc6RwoFQWaoYFVK04aT?purpose=fullsize" alt="Hoodie Front">
+        </div>
+        <div class="gallery-img-wrap">
+          <img src="https://images.openai.com/static-rsc-4/r9GmS-iEeOOSw8tKVCL9PGm3yCMJeR7NR_j-5uduxZSXLWvb3C0zkVxi2CIAMn9D4I2x9yQKVNXNc1hoXxMxBh91iWxyBdeCqjAmm9ZPc2sS6hsogm_C5BqMi2OcWOo-1nt4kdC8GoULQhulax0uoqkTp1N26rkdgPtvDi2XRQuhCTzywDok3h9Jn1jQ83Oi?purpose=fullsize" alt="Hoodie Back">
+        </div>
+        <div class="gallery-img-wrap">
+          <img src="https://images.openai.com/static-rsc-4/SdSEmAyq9GuLpwM_c9px7ZDtoHBg6splG8iQr7Yb90vfaKE4UR0cr3MeN6vkArYJdo1Ba6tXtNJNoUdHqj_AozAzTyWAJWhvonzdQY-l3j4BaBu4NNk22eWpZMseRDPFa4ZltGtggRyOxZU6gGVygTwnG1XcY_9CKr8WUHkmoL_J1uAAmYKZseZwSNT_-pXy?purpose=fullsize" alt="Hoodie Detail">
+        </div>
+      </div>
+
+      <!-- Details -->
+      <div class="product-details">
+        <div class="breadcrumb">Inicio / Sudaderas / Hoodie Black Essential</div>
+        <h1 class="prod-title">Hoodie Black Essential</h1>
+        <div class="prod-price">64,90 €</div>
+        <div class="klarna-badge">Paga en 3 plazos de 21,63 € sin intereses</div>
+        
+        <div class="variant-label">Color: Negro</div>
+        <div class="color-options">
+          <div class="color-swatch active" style="color: #111;"></div>
+          <div class="color-swatch" style="color: #F5F5F5;"></div>
+          <div class="color-swatch" style="color: #333;"></div>
+        </div>
+
+        <div class="variant-label" style="display: flex; justify-content: space-between;">
+          <span>Talla</span>
+          <a href="#" style="text-decoration: underline; color: #999;">Guía de tallas</a>
+        </div>
+        <div class="size-options">
+          <button class="size-btn">S</button>
+          <button class="size-btn active">M</button>
+          <button class="size-btn">L</button>
+          <button class="size-btn">XL</button>
+        </div>
+        <div class="stock-alert">⚠️ Solo quedan 3 unidades en talla M</div>
+
+        <button class="btn btn-light add-cart-btn">AÑADIR AL CARRITO</button>
+        <button class="wishlist-btn">♡ AÑADIR A LISTA DE DESEOS</button>
+
+        <div style="margin-top: 2rem; display: flex; gap: 1rem; color: #999; font-size: 0.8rem; align-items: center;">
+          <span>✔️ Pago 100% seguro</span>
+          <span>✔️ Envío en 24h</span>
+          <span>✔️ 4.9/5 ⭐ Opiniones verificadas</span>
+        </div>
+
+        <div class="accordion">
+          <div class="accordion-item">
+            <div class="accordion-header">
+              <span>Descripción</span>
+              <span class="icon">+</span>
+            </div>
+            <div class="accordion-content">
+              <div class="accordion-inner">
+                Sudadera premium con corte oversize. Diseñada con un tejido de alto gramaje (450gsm) para un ajuste estructurado y caída perfecta. Capucha con doble forro sin cordones para una estética limpia.
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <div class="accordion-header">
+              <span>Materiales & Cuidado</span>
+              <span class="icon">+</span>
+            </div>
+            <div class="accordion-content">
+              <div class="accordion-inner">
+                100% Algodón orgánico. Lavar en frío del revés. No usar secadora.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/lenis@1.1.5/dist/lenis.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script>
+    // Simple accordion logic with GSAP
+    document.querySelectorAll('.accordion-header').forEach(header => {
+      header.addEventListener('click', () => {
+        const content = header.nextElementSibling;
+        const icon = header.querySelector('.icon');
+        const isOpen = content.style.height && content.style.height !== '0px';
+
+        if (isOpen) {
+          gsap.to(content, { height: 0, duration: 0.3, ease: 'power2.out' });
+          icon.textContent = '+';
+        } else {
+          // Close others
+          document.querySelectorAll('.accordion-content').forEach(c => {
+            gsap.to(c, { height: 0, duration: 0.3, ease: 'power2.out' });
+            c.previousElementSibling.querySelector('.icon').textContent = '+';
+          });
+          gsap.to(content, { height: 'auto', duration: 0.3, ease: 'power2.out' });
+          icon.textContent = '-';
+        }
+      });
+    });
+
+    // Size selection
+    document.querySelectorAll('.size-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
+        e.target.classList.add('active');
+      });
+    });
+  </script>
+</body>
+</html>
