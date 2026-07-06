@@ -127,6 +127,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   
   <script src="js/data.js"></script>
+  <script src="js/cart.js"></script>
   <script src="js/main.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
@@ -155,7 +156,7 @@
               <h4 class="product-title">${product.name}</h4>
               <span class="product-price">${product.price.toFixed(2)} €</span>
             </div>
-            <button class="add-to-cart" onclick="window.location.href='producto.html'">Ver Detalle</button>
+            <button class="add-to-cart" onclick='window.Cart.add({name: "${product.name}", price: ${product.price}, img: "${product.img}"})'>Añadir al carrito</button>
           `;
           shopContainer.appendChild(card);
         });
