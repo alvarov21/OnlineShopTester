@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
           <h4 class="product-title">${product.name}</h4>
           <span class="product-price">${product.price.toFixed(2)} €</span>
         </div>
-        <button class="add-to-cart">Añadir al carrito</button>
+        <button class="add-to-cart" onclick="alert('Añadido al carrito: ${product.name}')">Añadir al carrito</button>
       `;
       bestsellersContainer.appendChild(card);
     });
