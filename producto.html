@@ -236,30 +236,20 @@
   <div class="container product-page-padding">
     <div class="product-layout">
       <!-- Gallery -->
-      <div class="product-gallery">
-        <div class="gallery-img-wrap full" id="main-product-img">
-          <img src="https://images.openai.com/static-rsc-4/FeLX6wPxoOYhrMfrl1CWqEUfUUEmgF_Ei9_lcMtfImpJg7ZCUhDdHyOMb4vypFPAihZjJvyui0FLC-1kGYXQohLT2-lb1BQjN5TgqhkpREvwun9p6aitgDiCespfU6oo6YumJDmDLSE4yeESswRKSBGpherL-4oV0-axBRaQMlpuhzc6RwoFQWaoYFVK04aT?purpose=fullsize" alt="Hoodie Front">
-        </div>
-        <div class="gallery-img-wrap">
-          <img src="https://images.openai.com/static-rsc-4/r9GmS-iEeOOSw8tKVCL9PGm3yCMJeR7NR_j-5uduxZSXLWvb3C0zkVxi2CIAMn9D4I2x9yQKVNXNc1hoXxMxBh91iWxyBdeCqjAmm9ZPc2sS6hsogm_C5BqMi2OcWOo-1nt4kdC8GoULQhulax0uoqkTp1N26rkdgPtvDi2XRQuhCTzywDok3h9Jn1jQ83Oi?purpose=fullsize" alt="Hoodie Back">
-        </div>
-        <div class="gallery-img-wrap">
-          <img src="https://images.openai.com/static-rsc-4/SdSEmAyq9GuLpwM_c9px7ZDtoHBg6splG8iQr7Yb90vfaKE4UR0cr3MeN6vkArYJdo1Ba6tXtNJNoUdHqj_AozAzTyWAJWhvonzdQY-l3j4BaBu4NNk22eWpZMseRDPFa4ZltGtggRyOxZU6gGVygTwnG1XcY_9CKr8WUHkmoL_J1uAAmYKZseZwSNT_-pXy?purpose=fullsize" alt="Hoodie Detail">
-        </div>
+      <div class="product-gallery" id="dyn-gallery">
+        <!-- Main img will be injected here -->
       </div>
 
       <!-- Details -->
       <div class="product-details">
-        <div class="breadcrumb">Inicio / Sudaderas / Hoodie Black Essential</div>
-        <h1 class="prod-title">Hoodie Black Essential</h1>
-        <div class="prod-price">64,90 €</div>
-        <div class="klarna-badge">Paga en 3 plazos de 21,63 € sin intereses</div>
+        <div class="breadcrumb" id="dyn-breadcrumb">Inicio / Productos / ...</div>
+        <h1 class="prod-title" id="dyn-title">Cargando...</h1>
+        <div class="prod-price" id="dyn-price">-- €</div>
+        <div class="klarna-badge">Paga en 3 plazos sin intereses</div>
         
-        <div class="variant-label" id="color-label">Color: Negro</div>
-        <div class="color-options">
-          <div class="color-swatch active" style="color: #111;" data-color="Negro" data-img="https://images.openai.com/static-rsc-4/FeLX6wPxoOYhrMfrl1CWqEUfUUEmgF_Ei9_lcMtfImpJg7ZCUhDdHyOMb4vypFPAihZjJvyui0FLC-1kGYXQohLT2-lb1BQjN5TgqhkpREvwun9p6aitgDiCespfU6oo6YumJDmDLSE4yeESswRKSBGpherL-4oV0-axBRaQMlpuhzc6RwoFQWaoYFVK04aT?purpose=fullsize"></div>
-          <div class="color-swatch" style="color: #F5F5F5;" data-color="Blanco" data-img="https://images.openai.com/static-rsc-4/r9GmS-iEeOOSw8tKVCL9PGm3yCMJeR7NR_j-5uduxZSXLWvb3C0zkVxi2CIAMn9D4I2x9yQKVNXNc1hoXxMxBh91iWxyBdeCqjAmm9ZPc2sS6hsogm_C5BqMi2OcWOo-1nt4kdC8GoULQhulax0uoqkTp1N26rkdgPtvDi2XRQuhCTzywDok3h9Jn1jQ83Oi?purpose=fullsize"></div>
-          <div class="color-swatch" style="color: #333;" data-color="Gris" data-img="https://images.openai.com/static-rsc-4/SdSEmAyq9GuLpwM_c9px7ZDtoHBg6splG8iQr7Yb90vfaKE4UR0cr3MeN6vkArYJdo1Ba6tXtNJNoUdHqj_AozAzTyWAJWhvonzdQY-l3j4BaBu4NNk22eWpZMseRDPFa4ZltGtggRyOxZU6gGVygTwnG1XcY_9CKr8WUHkmoL_J1uAAmYKZseZwSNT_-pXy?purpose=fullsize"></div>
+        <div class="variant-label" id="color-label">Color: Principal</div>
+        <div class="color-options" id="dyn-colors">
+          <!-- Colors will be injected here -->
         </div>
 
         <div class="variant-label" style="display: flex; justify-content: space-between;">
@@ -274,7 +264,7 @@
         </div>
         <div class="stock-alert">⚠️ Solo quedan 3 unidades en talla M</div>
 
-        <button class="btn btn-light add-cart-btn" onclick="window.Cart.add({name: document.querySelector('.prod-title').textContent, price: 64.90, img: document.querySelector('#main-product-img img').src})">AÑADIR AL CARRITO</button>
+        <button class="btn btn-light add-cart-btn" id="dyn-add-cart">AÑADIR AL CARRITO</button>
         <button class="wishlist-btn" onclick="alert('Añadido a tu lista de deseos')">♡ AÑADIR A LISTA DE DESEOS</button>
 
         <div style="margin-top: 2rem; display: flex; gap: 1rem; color: #999; font-size: 0.8rem; align-items: center;">
@@ -313,7 +303,9 @@
 
   <script src="https://unpkg.com/lenis@1.1.5/dist/lenis.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="js/data.js"></script>
   <script src="js/cart.js"></script>
+  <script src="js/producto.js"></script>
   <script>
     // Simple accordion logic with GSAP
     document.querySelectorAll('.accordion-header').forEach(header => {
@@ -342,25 +334,6 @@
       btn.addEventListener('click', (e) => {
         document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
         e.target.classList.add('active');
-      });
-    });
-
-    // Color selection
-    document.querySelectorAll('.color-swatch').forEach(swatch => {
-      swatch.addEventListener('click', (e) => {
-        document.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('active'));
-        e.target.classList.add('active');
-        
-        // Update label
-        document.getElementById('color-label').textContent = 'Color: ' + e.target.dataset.color;
-        
-        // Update main image
-        const mainImg = document.querySelector('#main-product-img img');
-        // Simple crossfade using GSAP
-        gsap.to(mainImg, { opacity: 0, duration: 0.2, onComplete: () => {
-          mainImg.src = e.target.dataset.img;
-          gsap.to(mainImg, { opacity: 1, duration: 0.2 });
-        }});
       });
     });
   </script>

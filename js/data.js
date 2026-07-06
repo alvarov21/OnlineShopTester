@@ -38,3 +38,10 @@ const catalog = {
     { name: 'Grey Texture', price: 39.90, img: 'https://images.openai.com/static-rsc-4/d4s5hEtILmczQeigjPBPILLVxKiXloIBDOSz-oyd6n2Bf1uAgv9c0iKfcFswWtcITTQ63ryKWnGKlwIb_BAZFLEOrWBo8P1hG1zhKat0etbQm8DcFr5bJZFd2EoENEPpOqOZ6RfaTu6D6ef_9LdI7lkQNlQvbDs_5-1y7O7meU-qXRdBlqUopcUX4Lh8Bh9q?purpose=fullsize' }
   ]
 };
+
+// Add ID to each product based on name
+Object.keys(catalog).forEach(category => {
+  catalog[category].forEach(product => {
+    product.id = product.name.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+  });
+});

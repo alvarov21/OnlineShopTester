@@ -14,10 +14,10 @@ document.addEventListener('DOMContentLoaded', () => {
       const card = document.createElement('div');
       card.className = 'product-card';
       card.innerHTML = `
-        <div class="product-img-wrap">
+        <div class="product-img-wrap" style="cursor: pointer;" onclick="window.location.href='producto.html?id=${product.id}'">
           <img src="${product.img}" alt="${product.name}" loading="lazy">
         </div>
-        <div class="product-info">
+        <div class="product-info" style="cursor: pointer;" onclick="window.location.href='producto.html?id=${product.id}'">
           <h4 class="product-title">${product.name}</h4>
           <span class="product-price">${product.price.toFixed(2)} €</span>
         </div>
