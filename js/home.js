@@ -16,12 +16,12 @@ document.addEventListener('DOMContentLoaded', () => {
       card.innerHTML = `
         <div class="product-img-wrap" style="cursor: pointer;" onclick="window.location.href='producto.html?id=${product.id}'">
           <img src="${product.img}" alt="${product.name}" loading="lazy">
+          <button class="add-to-cart" onclick="event.stopPropagation(); window.Cart.add({name: '${product.name}', price: ${product.price}, img: '${product.img}'})">Añadir al carrito</button>
         </div>
         <div class="product-info" style="cursor: pointer;" onclick="window.location.href='producto.html?id=${product.id}'">
           <h4 class="product-title">${product.name}</h4>
           <span class="product-price">${product.price.toFixed(2)} €</span>
         </div>
-        <button class="add-to-cart" onclick="alert('Añadido al carrito: ${product.name}')">Añadir al carrito</button>
       `;
       bestsellersContainer.appendChild(card);
     });
