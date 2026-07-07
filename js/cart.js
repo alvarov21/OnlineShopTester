@@ -2,20 +2,34 @@
 
 class ShoppingCart {
   constructor() {
+    console.log("ShoppingCart initialized");
     try {
       this.items = JSON.parse(localStorage.getItem('premium_cart')) || [];
       if (!Array.isArray(this.items)) this.items = [];
     } catch (e) {
+      console.error("Error reading localStorage:", e);
       this.items = [];
     }
-    this.init();
+    
+    // We bind DOM initialization to DOMContentLoaded just in case, but Cart exists instantly
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => this.init());
+    } else {
+      this.init();
+    }
   }
 
   init() {
-    this.injectCartHTML();
-    this.cacheDOM();
-    this.bindEvents();
-    this.render();
+    try {
+      this.injectCartHTML();
+      this.cacheDOM();
+      this.bindEvents();
+      this.render();
+      console.log("ShoppingCart init complete");
+    } catch (e) {
+      console.error("Error in ShoppingCart init:", e);
+      alert("Error initializing cart. Please check console.");
+    }
   }
 
   injectCartHTML() {
@@ -58,7 +72,7 @@ class ShoppingCart {
         
         // Remove old onclick
         svg.removeAttribute('onclick');
-        wrap.addEventListener('click', () => this.toggleCart());
+        wrap.addEventListener('click', () => this.toggleCart(true));
       }
     });
   }
@@ -74,31 +88,43 @@ class ShoppingCart {
   }
 
   bindEvents() {
-    this.closeBtn.addEventListener('click', () => this.toggleCart());
-    this.overlay.addEventListener('click', () => this.toggleCart());
-    this.checkoutBtn.addEventListener('click', () => {
-      if (this.items.length > 0) {
-        window.location.href = 'checkout.html';
-      } else {
-        alert('Tu carrito está vacío.');
-      }
-    });
+    if (this.closeBtn) this.closeBtn.addEventListener('click', () => this.toggleCart(false));
+    if (this.overlay) this.overlay.addEventListener('click', () => this.toggleCart(false));
+    if (this.checkoutBtn) {
+      this.checkoutBtn.addEventListener('click', () => {
+        if (this.items.length > 0) {
+          window.location.href = 'checkout.html';
+        } else {
+          alert('Tu carrito está vacío.');
+        }
+      });
+    }
   }
 
   save() {
-    localStorage.setItem('premium_cart', JSON.stringify(this.items));
+    try {
+      localStorage.setItem('premium_cart', JSON.stringify(this.items));
+    } catch (e) {
+      console.warn("Could not save to localStorage. Are you running on file:/// ?");
+    }
     this.render();
   }
 
   add(product) {
-    const existingItem = this.items.find(item => item.name === product.name);
-    if (existingItem) {
-      existingItem.qty += 1;
-    } else {
-      this.items.push({ ...product, qty: 1 });
+    console.log("Cart.add called with:", product);
+    try {
+      const existingItem = this.items.find(item => item.name === product.name);
+      if (existingItem) {
+        existingItem.qty += 1;
+      } else {
+        this.items.push({ ...product, qty: 1 });
+      }
+      this.save();
+      this.toggleCart(true); // Open cart automatically
+    } catch (e) {
+      console.error("Error adding to cart:", e);
+      alert("Error adding item to cart.");
     }
-    this.save();
-    this.toggleCart(true); // Open cart automatically
   }
 
   remove(name) {
@@ -119,6 +145,8 @@ class ShoppingCart {
   }
 
   toggleCart(forceOpen = false) {
+    if (!this.overlay || !this.drawer) return;
+    
     if (forceOpen) {
       this.overlay.classList.add('active');
       this.drawer.classList.add('active');
@@ -138,6 +166,8 @@ class ShoppingCart {
   }
 
   render() {
+    if (!this.badges || !this.itemsContainer || !this.totalPriceEl) return;
+    
     // Update badges
     const totalItems = this.items.reduce((sum, item) => sum + item.qty, 0);
     this.badges.forEach(badge => {
@@ -173,10 +203,10 @@ class ShoppingCart {
         </div>
       `;
     }).join('');
+
     this.totalPriceEl.textContent = `${total.toFixed(2)} €`;
   }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-  window.Cart = new ShoppingCart();
-});
+// Make globally available immediately
+window.Cart = new ShoppingCart();
