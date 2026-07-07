@@ -13,8 +13,8 @@ class ShoppingCart {
 
   init() {
     this.injectCartHTML();
-    this.bindEvents(); // Bind events creates the badges
-    this.cacheDOM(); // Cache DOM AFTER badges are created
+    this.cacheDOM();
+    this.bindEvents();
     this.render();
   }
 
