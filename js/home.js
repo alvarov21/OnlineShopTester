@@ -14,9 +14,9 @@ document.addEventListener('DOMContentLoaded', () => {
       const card = document.createElement('div');
       card.className = 'product-card';
       card.innerHTML = `
-        <div class="product-img-wrap" style="cursor: pointer;" onclick="window.location.href='producto.html?id=${product.id}'">
-          <img src="${product.img}" alt="${product.name}" loading="lazy">
-          <button class="add-to-cart" onclick="event.stopPropagation(); window.Cart.add({name: '${product.name}', price: ${product.price}, img: '${product.img}'})">Añadir al carrito</button>
+        <div class="product-img-wrap">
+          <img src="${product.img}" alt="${product.name}" loading="lazy" style="cursor: pointer;" onclick="window.location.href='producto.html?id=${product.id}'">
+          <button class="add-to-cart" onclick="window.Cart.add({name: '${product.name}', price: ${product.price}, img: '${product.img}'})">Añadir al carrito</button>
         </div>
         <div class="product-info" style="cursor: pointer;" onclick="window.location.href='producto.html?id=${product.id}'">
           <h4 class="product-title">${product.name}</h4>

@@ -2,14 +2,19 @@
 
 class ShoppingCart {
   constructor() {
-    this.items = JSON.parse(localStorage.getItem('premium_cart')) || [];
+    try {
+      this.items = JSON.parse(localStorage.getItem('premium_cart')) || [];
+      if (!Array.isArray(this.items)) this.items = [];
+    } catch (e) {
+      this.items = [];
+    }
     this.init();
   }
 
   init() {
     this.injectCartHTML();
-    this.cacheDOM();
-    this.bindEvents();
+    this.bindEvents(); // Bind events creates the badges
+    this.cacheDOM(); // Cache DOM AFTER badges are created
     this.render();
   }
 
