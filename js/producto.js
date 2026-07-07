@@ -64,6 +64,14 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  // Bind size events
+  document.querySelectorAll('.size-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
+      e.target.classList.add('active');
+    });
+  });
+
   // Bind Add to Cart
   const addCartBtn = document.getElementById('dyn-add-cart');
   addCartBtn.addEventListener('click', () => {
