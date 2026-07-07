@@ -67,10 +67,19 @@ document.addEventListener('DOMContentLoaded', () => {
   // Bind Add to Cart
   const addCartBtn = document.getElementById('dyn-add-cart');
   addCartBtn.addEventListener('click', () => {
+    const activeSizeEl = document.querySelector('.size-btn.active');
+    const size = activeSizeEl ? ` - Talla ${activeSizeEl.textContent}` : '';
+    
+    const activeColorEl = document.querySelector('.color-swatch.active');
+    const color = activeColorEl ? ` - ${activeColorEl.dataset.color}` : '';
+    
+    const mainImgEl = document.querySelector('#main-product-img img');
+    const imgUrl = mainImgEl ? mainImgEl.src : currentProduct.img;
+
     window.Cart.add({
-      name: currentProduct.name,
+      name: `${currentProduct.name}${color}${size}`,
       price: currentProduct.price,
-      img: currentProduct.img
+      img: imgUrl
     });
   });
 });
