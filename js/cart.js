@@ -173,8 +173,7 @@ class ShoppingCart {
         </div>
       `;
     }).join('');
-
-    this.totalPriceEl.textContent = \`\${total.toFixed(2)} €\`;
+    this.totalPriceEl.textContent = `${total.toFixed(2)} €`;
   }
 }
 
