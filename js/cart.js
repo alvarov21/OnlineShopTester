@@ -51,6 +51,20 @@ class ShoppingCart {
             <span id="cart-total-price">0.00 €</span>
           </div>
           <button class="btn btn-light checkout-btn" id="checkout-btn">TRAMITAR PEDIDO</button>
+          
+          <div class="payment-methods">
+            <div class="secure-checkout">
+              <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+              <span>Pago 100% Seguro</span>
+            </div>
+            <div class="payment-icons">
+              <span class="pay-icon">VISA</span>
+              <span class="pay-icon">MASTERCARD</span>
+              <span class="pay-icon">AMEX</span>
+              <span class="pay-icon">PAYPAL</span>
+              <span class="pay-icon">APPLE PAY</span>
+            </div>
+          </div>
         </div>
       </div>
     `;
