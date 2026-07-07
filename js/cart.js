@@ -78,7 +78,7 @@ class ShoppingCart {
     this.overlay.addEventListener('click', () => this.toggleCart());
     this.checkoutBtn.addEventListener('click', () => {
       if (this.items.length > 0) {
-        alert('Redirigiendo a la pasarela de pago seguro...');
+        window.location.href = 'checkout.html';
       } else {
         alert('Tu carrito está vacío.');
       }
