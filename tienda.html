@@ -151,7 +151,6 @@
           card.innerHTML = `
             <div class="product-img-wrap">
               <img src="${product.img}" alt="${product.name}" loading="lazy" style="cursor: pointer;" onclick="window.location.href='producto.html?id=${product.id}'">
-              <button class="add-to-cart" onclick='window.Cart.add({name: "${product.name}", price: ${product.price}, img: "${product.img}"})'>Añadir al carrito</button>
             </div>
             <div class="product-info" style="cursor: pointer;" onclick="window.location.href='producto.html?id=${product.id}'">
               <h4 class="product-title">${product.name}</h4>
